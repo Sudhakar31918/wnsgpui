@@ -1,0 +1,539 @@
+{% extends "index.html" %}
+
+
+{% block requestForm %}
+
+
+<head>
+<meta content="noindex, nofollow" name="robots">
+<!-- Including CSS File Here -->
+<link href="static/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Including JS File Here -->
+<script src="static/multi_step_form.js" type="text/javascript"></script> 
+<style>
+
+</style>
+</head>
+
+<div class="content">
+<!-- Multistep Form -->
+<div >
+
+<!-- Progressbar -->
+<ul id="progressbar">
+<li id="active1">Policy</li>
+<li id="active2">Layer</li>
+<li id="active3">Location</li>
+<li id="active4">Claim Experiance</li>
+</ul>
+<form action='save_form_data' id ="myForm" class="regform" method="POST">
+  {% csrf_token %}
+<!-- Fieldsets -->
+<fieldset id="first">
+    <!-- <h2 class="title">policy</h2> -->
+    <button id="next_btn1" onclick="next_step1()" type="button" class ="b"><i class="fas fa-chevron-right"></i> </button>
+    <!--<p class="subtitle">Step 1</p><input class="text_field" name="email" placeholder="Email" type="text" value=""> -->
+    <div class="table-container">
+    <table>
+      <tr>
+        <th collapse="2" class = "policyheaders">Company Information</th>
+        <th collapse="2" class = "policyheaders">Objective Factors</th>
+        <th collapse="2" class = "policyheaders">Objective Factors -Details</th>
+      <th colspan="2" class = "policyheaders"> Peril Coverage</th>
+      </tr>
+    <tr>
+        <td>
+      <label for="accountname">Account Name</label>
+      <input type="text" id="accountname" name="accountname"><br><br>
+      <label for="OUR_region">Region*</label>
+      <input type="text" id="OUR_region" name="policy_OUR_region"><br><br>
+      <label for="business_plan_cell">Office / Branch*</label>
+      <input type="text" id="business_plan_cell" name="policy_business_plan_cell"><br><br>
+      <label for="lname">Rating Account Group</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="policy_id">Policy Class*</label>
+      <input type="text" id="policy_id" name="policy_policy_id"><br><br>
+      <label for="country_code">Policy Country*</label>
+      <input type="text" id="country_code" name="policy_country_code"><br><br>
+      </td>
+      
+          <td rowspan="3">
+      <label for="fname">Is this a renewal?</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Years Held</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="inception_date">Inception Date*</label>
+      <input type="text" id="inception_date" name="policy_inception_date"><br><br>
+      <label for="lname">UW Year</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="expiry_date">Expiry Date*</label>
+      <input type="text" id="expiry_date" name="policy_expiry_date"><br><br>
+      <label for="rating_date">Rating Date*</label>
+      <input type="text" id="rating_date" name="policy_rating_date"><br><br>
+        <label for="fname">SIC Code</label>
+      <input type="text" id="fname" name="fname"><br><br>
+        <label for="naics_code">NAIC Code*</label>
+      <input type="text" id="naics_code" name="naics_code"><br><br>
+        <label for="fname">NAIC Description</label>
+      <input type="text" id="fname" name="fname"><br><br>
+        <label for="fname">UK Trade Code</label>
+      <input type="text" id="fname" name="fname"><br><br>
+        <label for="fname">ANSIC Code</label>
+      <input type="text" id="fname" name="fname"><br><br>
+        <label for="fname">Broker Commission</label>
+      <input type="text" id="fname" name="fname"><br><br>
+        <label for="insured_name">Insured Name*</label>
+      <input type="text" id="insured_name" name="policy_insured_name"><br><br>
+        <label for="fname">Broker</label>
+      <input type="text" id="fname" name="fname"><br><br>
+          <label for="fname">Branch</label>
+      <input type="text" id="fname" name="fname"><br><br>
+          <label for="fname">Lloyd's Risk Code</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      </td>
+      
+        <td>
+        <label for="fname">Underwriter</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Assistant</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="fname">Actuary</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Cat Modeller</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="fname">RMS Status</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="fname">RMS Portfolio</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="fname">CAT Modeller <br> Comments</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      </td>
+          <td  style="vertical-align: middle;
+      text-align: center;" width="1" class = "policyheaders">
+        <h3 id = "sideheader"> Attritional </h3>
+        </td>
+        <td>
+      <label for="fname">Fire and Explosion</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Water</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="fname">Theft and Malicious <br> Damage</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Impact and  Accidental <br>Damage</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="fname">Machinery Breakdown</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      </td>
+    </tr>	   
+    <tr>
+        <th  style="text-align:center" class = "policyheaders">
+       Objective Factors - General
+      </th>
+      
+        <th style="text-align:center" class = "policyheaders">
+        Objective Factors -Adjustments
+      </th>
+              <th rowspan="2" style="vertical-align: middle;
+      text-align: center;" width="1" class = "policyheaders">
+        <h3 id = "sideheader"> Catastrophe </h3>
+        </th>
+      
+          <td rowspan="2">
+        <label for="fname">Flood</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="fname">Winter storm <br>(non-modelled)</label>
+      <input type="text" id="fname" name="fname"><br><br>  
+      <label for="fname">Convective storm <br>(non-modelled)</label>
+      <input type="text" id="fname" name="fname"><br><br>  
+      <label for="fname">Bushfire <br>(non-modelled)</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+        <label for="fname">Hail (non-modelled)</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+        <label for="fname">AOP (any other peril)</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+        <label for="fname">Catastrophe <br>(modelled perils)</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+        <label for="fname">Earthquake</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+        <label for="fname">Fire</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+        <label for="fname">Windstorm</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+          <label for="fname">Firefollowing</label>
+      <input type="text" id="fname" name="fname"><br><br> 
+          <label for="fname">Stormsurge</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      </td>
+    </tr>
+    <tr>
+        <td>
+      <label for="quote_number">Quote Reference # *</label>
+      <input type="text" id="quote_number" name="policy_quote_number"><br><br>
+      <label for="policy_number">Policy Number*</label>
+      <input type="text" id="policy_number" name="policy_policy_number"><br><br>
+      <label for="fname">Major Client</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Policy Status</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="currency_code">Currency*</label>
+      <input type="text" id="currency_code" name="policy_currency_code"><br><br>
+      <label for="fname">Description</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      </td>
+          <td>
+        <label for="fname">Buildings SI <br>Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Contents SI <br>Adjustment</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="fname">Business Interruption <br>SI Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Machine/Equipment <br>SI Adjustment</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <label for="fname">Stock SI Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="fname">Computer/Misc <br>SI Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="fname">Rent Payable <br>SI Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>  
+      <label for="fname">Rent Receivable <br>SI Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>  
+      <label for="fname">Indemnity Period <br>SI Adjustment</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      </td> 
+    </tr>
+    </table>
+    
+</div>
+</fieldset>
+<fieldset id="second">
+     <!--<h2 class="title">Layer</h2> -->
+    <button id="pre_btn1" onclick="prev_step1()" type="button" class ="b"><i class="fas fa-chevron-left"></i> </button>
+    <button id="next_btn2" name="next" onclick="next_step2()" type="button" class ="b"><i class="fas fa-chevron-right"></i> </button>
+    <div class="table-container">
+    <table style="width:100%">
+        <tr>
+        <th></th>
+        <th class="policyheaders">Layer 1</th>
+        <th class="policyheaders">Layer 2</th>
+        <th class="policyheaders">Layer 3</th>
+        <th class="policyheaders">Layer 4</th>
+        <th class="policyheaders">Layer 5</th>
+        </tr>
+        <tr>
+        <th id="layer_id" name="layer_id" class="policyheaders">Layer ID*</th>
+        <td><input type="text" id="layer1" name="layer_layer1_layer_id" ></td>
+        <td><input type="text" name="layer_layer2" ></td>
+        <td><input type="text" name="layer_layer3" ></td>
+        <td><input type="text" name="layer_layer4" ></td>
+        <td><input type="text" name="layer_layer5" ></td>
+                    
+        </tr>
+        <tr>
+        <th class="policyheaders">Layer Number</th>
+        <td><input type="text" id="layer1_layer_number" name="layer_layer1_layer_number"></td>
+        <td><input type="text" id="layer2_layer_number" name="layer2_layer_number"></td>
+        <td><input type="text" id="layer3_layer_number" name="layer3_layer_number"></td>
+        <td><input type="text" id="layer4_layer_number" name="layer4_layer_number"></td>
+        <td><input type="text" id="layer5_layer_number" name="layer5_layer_number"></td>
+        </tr>
+        <tr>
+        <th class="policyheaders">Lead</th>
+        <td><input type="text" id="layer1_lead" name="layer_layer1_lead"></td>
+        <td><input type="text" id="layer2_lead" name="layer2_lead"></td>
+        <td><input type="text" id="layer3_lead" name="layer3_lead"></td>
+        <td><input type="text" id="layer4_lead" name="layer4_lead"></td>
+        <td><input type="text" id="layer5_lead" name="layer5_lead"></td>
+        </tr>
+        <tr>
+        <th id="share_header" name="share_header" class="policyheaders">Share*</th>
+        <td><input type="text" id="layer1_share" name="layer_layer1_share"></td>
+        <td><input type="text"  id="layer2_share" name="layer2_share"></td>
+        <td><input type="text"  id="layer3_share" name="layer3_share"></td>
+        <td><input type="text"  id="layer4_share" name="layer4_share"></td>
+        <td><input type="text"  id="layer5_share" name="layer5_share"></td>
+        </tr>
+        <tr>
+        <th id="limit" name="limit" class="policyheaders">Limit 100% (GBP)*</th>
+        <td><input type="text" id="layer1_limit" name="layer_layer1_limit"></td>
+        <td><input type="text"  id="layer2_limit" name="layer2_limit"></td>
+        <td><input type="text"  id="layer3_limit" name="layer3_limit"></td>
+        <td><input type="text"  id="layer4_limit" name="layer4_limit"></td>
+        <td><input type="text"  id="layer5_limit" name="layer5_limit"></td>
+        </tr>
+        <tr>
+        <th id="excess" name="excess" class="policyheaders">Excess 100% (GBP)*</th>
+        <td><input type="text" id="layer1_excess" name="layer_layer1_excess"></td>
+        <td><input type="text" id="layer2_excess" name="layer2_excess"></td>
+        <td><input type="text" id="layer3_excess" name="layer3_excess"></td>
+        <td><input type="text" id="layer4_excess" name="layer4_excess"></td>
+        <td><input type="text" id="layer5_excess" name="layer5_excess"></td>
+        </tr>
+        <tr>
+        <th id="commission" name="commission" class="policyheaders">commission*</th>
+        <td><input type="text"  id="layer1_commission" name="layer_layer1_commission"></td>
+        <td><input type="text"  id="layer2_commission" name="layer2_commission"></td>
+        <td><input type="text"  id="layer3_commission" name="layer3_commission"></td>
+        <td><input type="text"  id="layer4_commission" name="layer4_commission"></td>
+        <td><input type="text" id="layer5_commission" name="layer5_commission"></td>
+        </tr>
+        <tr>
+        <th class="policyheaders">Layer Type</th>
+        <td><input type="text" name="layer_layer_type"></td>
+        <td><input type="text" name="layer_type"></td>
+        <td><input type="text" name="layer_type"></td>
+        <td><input type="text" name="layer_type"></td>
+        <td><input type="text" name="layer_type"></td>
+        </tr>
+    
+        <tr>
+        <th class="policyheaders">Telephone:</th>
+        <td><input type="text" name="layer_telephone"></td>
+        <td><input type="text" name="telephone"></td>
+        <td><input type="text" name="telephone"></td>
+        <td><input type="text" name="telephone"></td>
+        <td><input type="text" name="telephone"></td>
+        </tr>
+    </table>
+</div>
+</fieldset>
+<fieldset id="third">
+     <!--<h2 class="title">Location</h2> -->
+    <button id="pre_btn2" onclick="prev_step2()" type="button" class = "b"><i class="fas fa-chevron-left"></i> </button>
+    <button id="next_btn3" name="next" onclick="next_step3()" type="button" class = "b"><i class="fas fa-chevron-right"></i> </button>
+    {% comment %} <input class="submit_btn" onclick="validation(event)" type="submit" value="GetPrice"> {% endcomment %}
+    <div class="table-container">
+        <table id = "locationtbl">
+            <tr>
+                <th style="width:10%"> </th>
+                <th id="insurable_asset_id" name="insurable_asset_id" rowspan="2">Insurable 
+                  Asset Id*</th>
+                <th class="sub-loc-column" colspan="14"> Location </th>
+                <th class="loc-collapsed" onclick ="toggleloccolmns()"> + Location </th>
+                <th class ="sub-build-column" colspan="11">Building Attributes</th>
+                <th class ="build-collapsed"  onclick ="togglebuildcolmns()"> + Building Attributes</th>
+                <th class ="siheader" colspan="6">Sums Insured</th>
+                <th class ="nonCatlimit" colspan="10">Non CAT Limit</th>
+                <th class ="nonCatexcess" colspan="10">Non CAT Excess</th>
+                <th class ="catlimit" colspan="8">CAT Limit</th>
+                <th class ="catexcess" colspan="8">CAT Excess</th>
+                
+            </tr>
+            <tr>
+                <th> </th>
+                <th id="address_line1" name="address_line1" class="sub-loc-column" >Address Line 1*</th>
+                <th id="address_line2" name="address_line2" class="sub-loc-column" >Address Line 2</th>
+                <th id="address_line3" name="address_line3" class="sub-loc-column" >Address Line 3</th>
+                <th class="sub-loc-column" >Street</th>
+                <th id="zip_or_postcode" name="zip_or_postcode" class="sub-loc-column" >Zip/Postcode*</th>
+                <th id="city" name="city" class="sub-loc-column" > City*</th>
+                <th id="country" name ="country" class="sub-loc-column" >County</th>
+                <th id="country_code" name ="country_code" class="sub-loc-column" >Country code*</th>
+                <th id="latitude" name="latitude" class="sub-loc-column" >Latitude*</th>
+                <th id ="longitude" name="longitude" class="sub-loc-column" >Longitude*</th>
+                <th class="sub-loc-column" >Division</th>
+                <th class="sub-loc-column" >CAT Zone</th>
+                <th class="sub-loc-column" >Cresta Zone</th>
+                <th class="sub-loc-column" id="LocationCount" name="LocationCount">Location Count*</th>
+                <th> Location </th>
+                <th class="sub-build-column" id="ConstructionType" name="ConstructionType">Construction Type*</th>
+                    <th class="sub-build-column" id="SprinklersPresent" name="SprinklersPresent">Sprinklers*</th>
+                    <th class="sub-build-column" >Territory</th>
+                    <th class="sub-build-column" >occupation</th>
+                    <th class="sub-build-column" id="Year_Built" name="Year_Built">Year Built*</th>
+                    <th class="sub-build-column" >Building Count</th>
+                    <th class="sub-build-column" id="Number_Storeys" name="Number_Storeys">Number Storeys*</th>
+                    <th class="sub-build-column" id="Minimum_Floor_of_Interest" name="Minimum_Floor_of_Interest">Min Floor of interest*</th>
+                    <th class="sub-build-column" id="Floor_Area_-sqft-" name="Floor_Area_-sqft-">Floor Area Sqft*</th>
+                    <th class="sub-build-column" >Deductible Percent</th>
+                    <th class="sub-build-column" >PML Percent</th>
+                    <th>Building Attributes</th>
+                    <th>Buildings Policy (USD)</th>
+                    <th>Business Interrupt Policy (USD)</th>
+                    <th>Contents Machinery Policy (USD)</th>
+                    <th>Contents Stock Policy (USD)</th>
+                    <th>Contents Computers Policy (USD)</th>
+                    <th>Sums Insured</th>
+                    <th>Fire Capped Fire</th>
+                    <th>Fire Capped Lightning</th>
+                    <th>Fire Excess Fire</th>
+                    <th>Water</th>
+                    <th>Impact Accidental Damage</th>
+                    <th>Impact Subsidence</th>
+                    <th>Impact</th>
+                    <th>Theft</th>
+                    <th>Theft Malicious Damage</th>
+                    <th>Non CAT Limit</th>
+                    <th>	Fire Capped Fire	</th>
+                    <th>Fire Capped Lightning</th>
+                    <th>Fire Excess Fire</th>
+                    <th>Water</th>
+                    <th>Impact Accidental Damage</th>
+                    <th>Impact Subsidence</th>
+                    <th>Impact</th>
+                    <th>Theft</th>
+                    <th>Theft Malicious Damage</th>
+                    <th>Non CAT Excess</th>
+                    <th>Earthquake</th>
+                    <th>Windstorm</th>
+                    <th>Convective Storm</th>
+                    <th>Winterstorm</th>
+                    <th>Flood</th>
+                    <th>Wildfire/Bushfire</th>
+                    <th>Non-Modelled</th>
+                    <th>CAT Limit</th>
+                    <th>	Earthquake	</th>
+                    <th>Windstorm</th>
+                    <th>Convective Storm</th>
+                    <th>Winterstorm</th>
+                    <th>Flood</th>
+                    <th>Wildfire/Bushfire</th>
+                    <th>Non-Modelled</th>
+                    <th>CAT Excess</th>
+
+
+
+            </tr>
+            <tr>
+              <td><input type=checkbox id ="Inserdlt" style="width:30Px"></td>
+                <td ><input type="text" id="insurable_asset_id" name="insurable_asset_id" ></td>
+                <td class="sub-loc-column"><input type="text" id="address_line1" name="location_address_line1"></td>
+                <td class="sub-loc-column"><input type="text" id="address_line2" name="location_address_line2"></td>
+                <td class="sub-loc-column"><input type="text" id="address_line3" name="location_address_line3"></td>
+                <td class="sub-loc-column"><input type="text" id="Street" name="Street"></td>
+                <td class="sub-loc-column"><input type="text" id="zip_or_postcode" name="location_zip_or_postcode"></td>
+                <td class="sub-loc-column"><input type="text" id="city" name="location_city"></td>
+                <td class="sub-loc-column"><input type="text" id="county" name="county"></td>
+                <td class="sub-loc-column"><input type="text" id="country_code" name="location_country_code"></td>
+                <td class="sub-loc-column"><input type="text" id="latitude" name="location_latitude"></td>
+                <td class="sub-loc-column"><input type="text" id="longitude" name="location_longitude"></td>
+                <td class="sub-loc-column"><input type="text" id="division" name="division"></td>
+                <td class="sub-loc-column"><input type="text" id="catzone" name="catzone"></td>
+                <td class="sub-loc-column"><input type="text" id="crestazone" name="crestazone"></td>
+                <td class="sub-loc-column"><input type="text" id="LocationCount" name="custom_LocationCount"></td>
+                <td ><input type="text" id="Location" name="custom_Location"></td>
+                <td class="sub-build-column"><input type="text" id="ConstructionType" name="custom_ConstructionType"></td>
+                <td class="sub-build-column"><input type="text" id="SprinklersPresent" name="custom_SprinklersPresent"></td>
+                <td class="sub-build-column"><input type="text" id="territory" name="territory"></td>
+                <td class="sub-build-column"><input type="text" id="occupation" name="occupation"></td>
+                <td class="sub-build-column"><input type="text" id="Year_Built" name="custom_Year_Built"></td>
+                <td class="sub-build-column"><input type="text" id="building_count" name="building_count"></td>
+                <td class="sub-build-column"><input type="text" id="Number_Storeys" name="custom_Number_Storeys"></td>
+                <td class="sub-build-column"><input type="text" id="Minimum_Floor_of_Interest" name="custom_Minimum_Floor_of_Interest"></td>
+                <td class="sub-build-column"><input type="text" id="Floor_Area_-sqft-" name="custom_Floor_Area_-sqft-"></td>
+                <td class="sub-build-column"><input type="text" id="Deductible_Percent" name="Deductible_Percent"></td>
+                <td class="sub-build-column"><input type="text" id="PML_Percent" name="PML_Percent"></td>
+                <td ><input type="text" id="Building_Attributes" name="Building_Attributes"></td>
+                <td ><input type="text" id="Buildings_Policy_USD" name="Buildings_Policy_USD"></td>
+
+                
+                
+                {% comment %} <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td>
+                <td><input type="text" id="country_code" name="country_code"></td> {% endcomment %}
+                
+            </tr>
+        </table>
+        <br>  
+        <button type = button class = "b"  onclick = row()> <i class="fa-solid fa-plus"></i>  </button>
+        <button type = button class = "b"  onclick = del()><i class="fa-solid fa-minus"></i> </button>
+        {% comment %} <input type = button class = "b" value = "Add new row" onclick = row()>  
+        <input type = button class = "b" value = "Delete selected rows" onclick = del()> {% endcomment %}
+    </div>
+</fieldset>
+<fieldset id="forth"> 
+     <!--<h2 class="title">Claim Experiance</h2> -->
+     <button type="button" id="pre_btn3" onclick="prev_step3()" class="b"> <i class="fas fa-chevron-left"></i> </button>
+    {% comment %} <input id="pre_btn3" onclick="prev_step3()" type="button" value="Previous"> {% endcomment %}
+    <input class="submit_btn"  type="submit" value="GetPrice">
+    <div class="table-container">
+    <table id = "claimexptbl">
+
+        <tr>
+          <th> </th>
+            <th >Individual 
+                or Aggregate
+                </th>
+              <th>Paid or Incurred</th>
+              <th id="amount" name="amount">Amount*</th>
+              <th>Count</th>
+              <th>Name</th>
+              <th>Occurrent Date</th>
+              <th>Peril Name</th>
+              <th id="coverage_name" name="coverage_name">Coverage Name*</th>
+              <th>Sprinkler System </th>
+              <th>Included</th>
+              <th>Commentary</th>
+
+        </tr>
+        <tr>
+          <td><input type=checkbox id ="Inserdlt" style="width:30Px"></td>
+            <td><input type="text" id="Individual_or_Aggregate" name="Individual_or_Aggregate"></td>
+            <td><input type="text" id="Paid_or_Incurred" name="Paid_or_Incurred"></td>
+            <td><input type="text" id="amount" name="coverage_amount"></td>
+            <td><input type="text" id="count" name="count"></td>
+            <td><input type="text" id="name" name="name"></td>
+            <td><input type="text" id="occurrent_date" name="occurrent_date"></td>
+            <td><input type="text" id="peril_name" name="peril_name"></td>
+            <td><input type="text" id="coverage_name" name="coverage_coverage_name"></td>
+            <td><input type="text" id="sprinkler_system" name="sprinkler_system"></td>
+            <td><input type="text" id="included" name="included"></td>
+            <td><input type="text" id="commentary" name="commentary"></td>
+        
+        </tr>
+    </table>
+    <br>  
+    <button type = button class = "b"  onclick = claimExprow()> <i class="fa-solid fa-plus"></i>  </button>
+    <button type = button class = "b"  onclick = claimExpDel()><i class="fa-solid fa-minus"></i> </button>
+</div>
+</fieldset>
+</form>
+
+</div>
+</div>
+{% endblock requestForm %}
+

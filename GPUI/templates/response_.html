@@ -1,0 +1,494 @@
+{% extends "index.html" %}
+{% load static %}
+{% block policywiseresult %}
+
+<head>
+	<meta content="noindex, nofollow" name="robots">
+	<!-- Including CSS File Here -->
+	<link href={% static "style.css" %} rel="stylesheet" type="text/css">
+	<!-- Including JS File Here -->
+	<script src="/static/multi_step_form.js" type="text/javascript"></script>
+		<style>
+			.intro {
+			display: flex;
+			flex-direction: column;
+			justify-content: left;
+			align-items: left;
+			background: #DBE9FA;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			}
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			}
+		tr:nth-child(even) {
+			background-color: #dddddd;
+			}
+		</style>  
+</head>
+<div class="table-container">
+{% if error_message %}
+<p>{{error_message}} </p> 
+{% else %}
+<div>
+<div class="content">
+	<!-- Multistep Form -->
+	<div >
+	
+		<!-- Progressbar -->
+		<ul id="progressbar" class ="resultpages">
+			<li id="active1" >Policy Wise</li>
+			<li id="active2">Location Wise</li>
+		</ul>
+
+	<fieldset id="first">	
+		<div class="table-container">
+		<table >
+		<tr>
+			<th></th>
+			<th colspan="2">From Ground Up (FGU)</th>
+			<th colspan="2">Layer 1</th>
+			<th colspan="2">Layer 2</th>
+			<th colspan="2">Layer 3</th>
+			<th colspan="2">Layer 4</th>
+			<th colspan="2">Layer 5</th>
+		</tr>
+		<tr class = "cheader">
+			<th> Types/Peril </th>
+			<th>Model expected <br>loss cost </th>
+			<th>Underwriter <br>Adjustment <br>Premium </th>
+			<th>Model expected <br>loss cost </th>
+			<th>Underwriter <br>Adjustment <br>Premium </th>
+			<th>Model expected <br>loss cost </th>
+			<th>Underwriter <br>Adjustment <br>Premium </th>
+			<th>Model expected <br>loss cost </th>
+			<th>Underwriter <br>Adjustment <br>Premium </th>
+			<th>Model expected <br>loss cost </th>
+			<th>Underwriter <br>Adjustment <br>Premium </th>
+			<th>Model expected <br>loss cost </th>
+			<th>Underwriter <br>Adjustment <br>Premium </th>
+		</tr>
+			{% for x in insurable_asset.itertuples %}
+
+			{% if x.peril_name == 'Fire Capped' and x.layer_id == "Layer 1" %}
+			<tr >
+				<th>Fire Capped</th>
+				<td id="Fire Capped"> {{aggr_fire_capped}}
+				</td>
+				<td></td>
+				<td> {{x.fgu_loss}}</td>
+				<td> {{x.adj_los}} </td>
+				
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			{% elif x.peril_name == 'Fire Excess' and x.layer_id == "Layer 1" %}
+		<tr>
+			<th>Fire Excess</th>
+			<td id="Fire Excess"> {{aggr_fire_excess}} </td>
+			<td></td>
+			<td>{{x.fgu_loss}}</td>
+			<td>{{x.adj_los}}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th id="share" name="share">Lightning</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="cheader" >
+			<th >Fire <span>-</span></th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+			{% elif x.peril_name == 'Water' and x.layer_id == "Layer 1" %}
+		<tr>
+			<th id="excess" name="excess">Water</th>
+			<td>{{aggr_water}} </td>
+			<td></td>
+			<td>{{x.fgu_loss}}</td>
+			<td>{{x.adj_los}}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th id="commission" name="commission">Accidental Damage</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Subsidence</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+			{% elif x.peril_name == 'Impact' and x.layer_id == "Layer 1" %}
+		<tr>
+			<th>Impact</th>
+			<td> {{aggr_impact}} </td>
+			<td></td>
+			<td>{{x.fgu_loss}}</td>
+			<td>{{x.adj_los}}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="cheader">
+			<th>Impact <span> - </span> </th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+			{% elif x.peril_name == 'Theft' and x.layer_id == "Layer 1" %}
+		<tr >
+			<th>Theft </th>
+			<td> {{aggr_theft}}</td>
+			<td></td>
+			<td>{{x.fgu_loss}}</td>
+			<td>{{x.adj_los}}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Malicious Damage </th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="cheader">
+			<th>Theft <span> - <span></th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Others</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="cheader">
+			<th>Total Non-CAT </th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Earthquake</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Windstorm</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Convective Storm</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Winterstorm</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Flood</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Wildfire/Bushfire</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Non-Modelled</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="cheader">
+			<th>Total CAT <span> - </span></th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+
+				{% endif %}
+				{% endfor %}
+		</table>
+		</div>
+		</fieldset>	
+	<fieldset id="second">	
+		<div class="table-container">
+			<table >
+			<tr>
+				<th> </th>
+				<th colspan="9">Non CAT </th>
+				<th colspan="7">CAT </th>
+			</tr>
+			<tr>
+				<th >Insurable <br> Asset id</th>
+				<th >Fire Capped</th>
+				<th >Fire Capped Lightning</th>
+				<th >Fire Excess</th>
+				<th >Water</th>
+				<th >Impact Accidental Damage</th>
+				<th >Impact Subsidence</th>
+				<th >Impact</th>
+				<th >Theft</th>
+				<th >Theft Malicious Damage</th>
+				<th >Earthquake</th>
+				<th >Windstorm</th>
+				<th >Convective Storm</th>
+				<th >Winterstorm</th>
+				<th >Flood</th>
+				<th >Wildfire / Bushfire</th>
+				<th >Non-Modelled</th>
+					
+			</tr>
+			{% for x in insurable_asset.itertuples %}
+			
+			
+			{% if x.peril_name == 'Fire Capped' and x.layer_id == None %}
+			<tr> <td>{{x.insurable_asset_id}} </td> <td>{{x.fgu_loss}} </td> <td> </td>
+			{% endif %}
+			{% if x.peril_name == 'Fire Excess' and x.layer_id == None %}
+				<td>{{x.fgu_loss}} </td>
+			{% endif %}
+			{% if x.peril_name == 'Water' and x.layer_id == None %}
+				<td>{{x.fgu_loss}} </td> <td></td> <td> </td>
+			{% endif %}
+			{% if x.peril_name == 'Impact' and x.layer_id == None %}
+				<td>{{x.fgu_loss}} </td>
+			{% endif %}
+
+			{% if x.peril_name == 'Theft' and x.layer_id == None %}
+				<td>{{x.fgu_loss}} </td> </tr>
+			{% endif %}
+			
+			{% endfor %}
+			<tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			</tr>
+			</table>
+		</div>
+		</fieldset>	
+	</div>
+</div>	 
+{% endif %}
+
+
+  {% endblock policywiseresult %}
