@@ -1,6 +1,17 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }}" id="msg" role="alert">
+            {{message}} 
+        </div>
+
+    {% endfor %}
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    {% if messages %}
-        var errorMessage = "{{messages}}"
-        alert(errorMessage)
-    {% endif %}
+    setTimeout(function() {
+        if($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    },2000)
 </script>

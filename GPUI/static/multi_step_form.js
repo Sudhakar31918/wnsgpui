@@ -68,19 +68,6 @@ function prev_step3() {
 
 // Activate result tabs based on click
 
-// function policy_wise() {
-//     document.getElementById("first").style.display = "block";
-//     document.getElementById("second").style.display = "none";
-//     document.getElementById("active1").style.color = "red";
-//     document.getElementById("active2").style.color = "gray";
-// }
-// function location_wise() {
-//     document.getElementById("first").style.display = "none";
-//     document.getElementById("second").style.display = "block";
-//     document.getElementById("active2").style.color = "red";
-//     document.getElementById("active1").style.color = "gray";
-// }
-
 $(document).ready(function(){
     $('ul.resultpages li').click(function(){
         let clickedText = $(this).text();
@@ -197,3 +184,104 @@ function togglebuildcolmns() {
             return text === '+' ? '-' : '+' ;
     });
 }
+
+/*
+using ajax call to send form data to view for login
+*/
+
+$(document).ready(function(){
+    $("#btnLogin").click(function() {
+        var username = $("#loginusername").val();
+        var password = $("#loginpass").val();
+        if(!username) {
+            alert("Please enter username!")
+            return;
+        }
+        if(!password)
+        {
+            alert("Please enter password!")
+            return;
+        }
+        $.ajax({
+            url: "login",
+            method: "POST",
+            headers:{
+                "X-CSRFToken":csrftoken
+            },
+            data:{
+                'username':username,
+                'password':password,
+                'csrfmiddlewaretoken': csrftoken
+            },
+            success: function(response){
+                if(response.status){
+                    alert('login successfully')
+                    window.location.href ="/success/"
+                }
+                else{
+                    alert(response.message)
+                    console.log(response);
+                    window.location.reload();
+
+                }
+
+            },
+            error: function(error){
+                console.log(error);
+                window.location.reload();
+            }
+        });
+
+    });
+});
+
+/*
+using ajax call to send form data to view for register user details
+*/
+
+$(document).ready(function(){
+    $("#btnSignUp").click(function() {
+        var username = $("#username").val();
+        var email = $("#email").val();
+        var pass1 = $("#pass1").val();
+        var pass2 = $("#pass2").val();
+
+        if(!username || !email || !pass1 || !pass2) {
+            alert("All fields must be filled!");
+            return;
+
+        }
+
+        $.ajax({
+            url: "login_register",
+            method: "POST",
+            headers:{
+                "X-CSRFToken":csrftoken
+            },
+            data:{
+                'username':username,
+                'email': email,
+                'pass1': pass1,
+                'pass2': pass2,
+                'csrfmiddlewaretoken': csrftoken
+            },
+            success: function(response){
+                if(response.status){
+                    alert(response.message);
+                    window.location.reload();
+                }else{
+                    alert(response.message);
+                    window.location.reload();
+                }
+
+
+            },
+            error: function(error){
+                console.log(error);
+                window.location.reload();
+            }
+        });
+        
+    });
+});
+

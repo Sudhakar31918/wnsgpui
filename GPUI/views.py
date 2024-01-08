@@ -1,4 +1,4 @@
-from django.contrib.auth import login,authenticate,logout
+
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
@@ -24,49 +24,76 @@ def index(request):
         return render(request,'index.html')
 
 def login_register(request):
+    
+    if request.method =='POST':
 
-    if request.method =='POST' and 'btnSignUp' in request.POST:
-        
         username =request.POST['username']
         email = request.POST['email']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
         if User.objects.filter(username=username):
-            messages.error(request,"Username already exist!Please try some other username.")
-            return redirect('/')
+            res_data ={'message':"Username already exist!Please try some other username."}
+            return JsonResponse(res_data)
+            # messages.warning(request,"Username already exist!Please try some other username.")
+            # return render(request,'login_register.html')
         if User.objects.filter(email=email).exists():
-            messages.error(request,"Email already registed!! ")
-            return redirect('/')
+            res_data ={'message':"Email already exist!Please try with different."}
+            return JsonResponse(res_data)
+            # messages.warning(request,"Email already registed!! ")
+            # return render(request,'login_register.html')
         if len(username)>20:
-            messages.error(request,"Username must be under 20 chanracters!!")
-            return redirect('/')
+            res_data ={'message':"Username should be under 20 character!"}
+            return JsonResponse(res_data)
+            # messages.warning(request,"Username must be under 20 chanracters!!")
+            # return render(request,'login_register.html')
         if pass1 != pass2:
-            messages.error(request,"Passwords didn't match")
-            return redirect('/')
+            res_data ={'message':"password's not matching please re-enter!"}
+            return JsonResponse(res_data)
+            # messages.warning(request,"Passwords didn't match")
+            # return render(request,'login_register.html')
         if not username.isalnum():
-            messages.error(request,"Username must be alphanumeric!!")
-            return redirect('/')
+            # messages.warning(request,"Username must be alphanumeric!!")
+            # return render(request,'login_register.html')
+            res_data ={'message':"Username must be alphanumeric!!"}
+            return JsonResponse(res_data)
         
         myuser = User.objects.create_user(username,email,pass1)
         myuser.is_active = False
         myuser.save()
-        messages.success(request,"Your acccount has been activated!")
+        res_data ={ 'status':True,'message':"Your request has been submitted!"}
+        return JsonResponse(res_data)
+        # messages.success(request,"Your request has been submitted!")
+    return render(request,'login_register.html')
 
-    elif request.method == 'POST' and 'btnLogin' in request.POST:
-        
+def login_succes(request):
+    return redirect("/")
+    # return render(request,'multi_step_form.html')
+
+def login(request):    
+    if request.method == 'POST':
+
         username =request.POST['username']
-        pass1 = request.POST['pass1']
-        
-        user = authenticate(request,username=username,password=pass1)
+        password = request.POST['password']
+        print(username +"-" + password)
+        user = auth.authenticate(username=username,password=password)
         
         if user is not None:
-            auth.login(request,user)
-            messages.success(request,"logged successfully")
-            return render(request,'multi_step_form.html')
+            auth.login(request, user)
+
+            res_data ={'status': True,'message':"logged successfully!"}
+            return JsonResponse(res_data)
+            # print("Hello")
+            # messages.success(request,"logged successfully")
         else:
-            messages.error(request,"Bad credentials!")
-    return render(request,'login_register.html')
+            res_data ={'status': False,'message':"Bad credentials!"}
+            return JsonResponse(res_data)
+            # messages.info(request,"Bad credentials!")
+            # return render(request,'login_register.html')
+    else:
+        res_data ={'status': False,'message':"Error occured!"}
+        return JsonResponse(res_data)
+        # return render(request,'login_register.html')
 
 def signout(request):
     auth.logout(request)
@@ -194,16 +221,16 @@ def save_form_data(request):
                             'aggr_theft':aggr_theft,
                             'statusCode' : request.session.get('statusCode')
                         } 
-                return render(request,'response_.html' ,context)
+                return render(request,'res_.html' ,context)
             else:
                 error_msg = "Bad request please check input data and send!"
-                return render(request,'response_.html' ,{'error_message':error_msg})
+                return render(request,'res_.html' ,{'error_message':error_msg})
         except requests.exceptions.RequestException as req_err:
             error_msg = f"Request error: {req_err}"
-            return render (request,'response_.html',{'error_message':error_msg})
+            return render (request,'res_.html',{'error_message':error_msg})
         except Exception as e:
             error_msg =f"Error: {type(e).__name__}, Message: {str(e)}"
-            return render (request,'response_.html',{'error_msg':error_msg})
+            return render (request,'res_.html',{'error_msg':error_msg})
 
 def success_view(request):
     list_result = []
@@ -230,7 +257,7 @@ def success_view(request):
         
         pf =pd.DataFrame(list_result,columns =['insurable_asset_id', 'layer_id','coverage_name','peril_name','fgu_loss','adj_los']).round(decimals=2)
         # pf =pf[pf['insurable_asset_id'].notnull()]
-        # pf =pf[pf['layer_id'].notnull()]
+        # pf =pf[pf['mlayer_id'].notnull()]
         # fire_cap_fgu_loss = pf[(pf["peril_name"] == "Fire Capped") & (pf["layer_id"] == "Layer 1")]["fgu_loss"].to_string(index=False)
         # print(pf)
 
@@ -256,10 +283,10 @@ def success_view(request):
             }
     else:
         context  ={ 
-            'msg' : "you are passing woring input to get results please try with correct!"
+            'msg' : "you are passing wroing input to get results please try with correct!"
         }
 
-    return render(request,'response_.html' ,context)
+    return render(request,'res_.html' ,context)
 def errorview(request):
     messages = "Bad request! Please check entered values!"
     return render(request,'errormsg.html',{'messages':messages})
